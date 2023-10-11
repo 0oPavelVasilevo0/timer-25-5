@@ -1,7 +1,113 @@
 import { MDBContainer, MDBIcon } from "mdb-react-ui-kit";
 import './App.css';
+import React, { useEffect, useState } from "react";
+
 
 function App() {
+
+  const [breakLength, setBreakLength] = useState(5);
+  const [sessionLength, setSessionLength] = useState(25);
+  const [timeLeft, setTimeLeft] = useState(sessionLength * 60); // in seconds
+  const [timerLabel, setTimerLabel] = useState("Session");
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+
+  useEffect(() => {
+    if (timerRunning && timeLeft === 0) {
+      // clearInterval(intervalId); // Pause the timer when time runs out
+      const audio = document.getElementById('beep');
+      audio.play(); // Play the beep sound
+
+      // Switch to break or session based on current timer label
+      if (timerLabel === "Session") {
+        setTimerLabel("Break");
+        setTimeLeft(breakLength * 60);
+      } else {
+        setTimerLabel("Session");
+        setTimeLeft(sessionLength * 60);
+      }
+      // setTimerRunning(false);
+    }
+  }, [timerRunning, timeLeft, breakLength, sessionLength, timerLabel]);
+
+  // Functions for incrementing and decrementing break/session lengths
+  const incrementBreakLength = () => {
+    if (breakLength < 60) {
+      setBreakLength(breakLength + 1);
+    }
+  };
+
+  const decrementBreakLength = () => {
+    if (breakLength > 1) {
+      setBreakLength(breakLength - 1);
+    }
+  };
+
+  const incrementSessionLength = () => {
+    if (sessionLength < 60) {
+      setSessionLength(sessionLength + 1);
+      setTimeLeft((sessionLength + 1) * 60);
+    }
+  };
+
+  const decrementSessionLength = () => {
+    if (sessionLength > 1) {
+      setSessionLength(sessionLength - 1);
+      setTimeLeft((sessionLength - 1) * 60);
+    }
+  };
+
+  // Functions for starting, pausing, and resetting the timer
+  const startStopTimer = () => {
+    if (timerRunning) {
+      clearInterval(intervalId); // Pause the timer
+      setTimerRunning(false);
+    } else {
+      const newIntervalId = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev === 0) {
+            const audio = document.getElementById('beep');
+            audio.play(); // Play the beep sound
+
+            // Switch to break or session based on current timer label
+            if (timerLabel === "Session") {
+              setTimerLabel("Break");
+              return breakLength * 60;
+            } else {
+              setTimerLabel("Session");
+              return sessionLength * 60;
+            }
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      setIntervalId(newIntervalId);
+      setTimerRunning(true);
+    }
+  };
+
+  const resetTimer = () => {
+    clearInterval(intervalId); // Stop the running timer
+    setTimerRunning(false); // Pause the timer
+    setTimerLabel("Session"); // Reset the timer label to "Session"
+    setBreakLength(5); // Reset break length to 5
+    setSessionLength(25); // Reset session length to 25
+    setTimeLeft(25 * 60); // Reset timeLeft to initial session length in seconds
+    const audio = document.getElementById('beep');
+    audio.pause(); // Pause the audio
+    audio.currentTime = 0; // Rewind the audio to the beginning
+  };
+
+  // Function for converting timeLeft to mm:ss format
+
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
+  
   return (
     <MDBContainer
       fluid
@@ -15,8 +121,9 @@ function App() {
         <MDBContainer
           fluid
           className="d-flex justify-content-center align-items-center my-3"
+          style={{fontSize: '2rem'}}
         >
-          25 + 5 Clock
+          Timer
         </MDBContainer>
         <MDBContainer fluid className="d-flex flex-row mb-3 px-0 ">
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
@@ -28,13 +135,13 @@ function App() {
               style={{ width: "8rem" }}
             >
               <MDBContainer className="d-flex flex-column justify-content-center align-items-center pe-0">
-                <MDBIcon id="break-decrement" size="lg" fas icon="chevron-down" />
+                <MDBIcon id="break-decrement" size="lg" fas icon="chevron-down" onClick={decrementBreakLength} />
               </MDBContainer>
               <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center ">
-                5
+                {breakLength}
               </MDBContainer>
               <MDBContainer className="d-flex flex-column justify-content-center align-items-center ps-0">
-                <MDBIcon id="break-increment" size="lg" fas icon="chevron-up" />
+                <MDBIcon id="break-increment" size="lg" fas icon="chevron-up" onClick={incrementBreakLength} />
               </MDBContainer>
             </MDBContainer>
           </MDBContainer>
@@ -47,39 +154,36 @@ function App() {
               style={{ width: "8rem" }}
             >
               <MDBContainer className="d-flex flex-column justify-content-center align-items-center pe-0">
-                <MDBIcon id="session-decrement" size="lg" fas icon="chevron-down" />
+                <MDBIcon id="session-decrement" size="lg" fas icon="chevron-down" onClick={decrementSessionLength} />
               </MDBContainer>
               <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center ">
-                25
+                {sessionLength}
               </MDBContainer>
               <MDBContainer className="d-flex flex-column justify-content-center align-items-center ps-0">
-                <MDBIcon id="session-increment" size="lg" fas icon="chevron-up" />
+                <MDBIcon id="session-increment" size="lg" fas icon="chevron-up" onClick={incrementSessionLength} />
               </MDBContainer>
             </MDBContainer>
           </MDBContainer>
         </MDBContainer>
         <MDBContainer
-          className="border border-secondary rounded-3 d-flex flex-column align-items-center justify-content-center mb-3 p-3 "
-          style={{ maxWidth: "8rem", fontSize: '2rem' }}
+          className="border border-secondary rounded-3 d-flex flex-column align-items-center justify-content-center my-3 p-3 "
+          style={{ maxWidth: "9rem", fontSize: '2rem' }}
         >
           <MDBContainer id="timer-label" className="d-flex flex-column align-items-center justify-content-center px-0">
-            Timer
+            {timerLabel}
           </MDBContainer>
           <MDBContainer id="time-left" className="d-flex flex-column align-items-center justify-content-center px-0">
-            25:00
+            {formatTime(timeLeft)}
           </MDBContainer>
         </MDBContainer>
-        <MDBContainer className="d-flex flex-row align-items-center justify-content-center mb-3 px-0 " style={{ width: '5rem', height: '2rem' }}>
+        <MDBContainer className="d-flex flex-row align-items-center justify-content-center mb-3 px-0 " style={{ width: '7rem', height: '2rem' }}>
           <MDBContainer className="d-flex align-items-center justify-content-center p-0">
-            <MDBIcon id="start_stop" size="lg" far icon="play-circle" />
+            <MDBIcon id="start_stop" size="lg" far icon={timerRunning ? "pause-circle" : "play-circle"} onClick={startStopTimer} />
           </MDBContainer>
-          <MDBContainer className="d-flex align-items-center justify-content-center p-0">
-            <MDBIcon id="start_stop" size="lg" far icon="pause-circle" />
+          <MDBContainer className="d-flex align-items-center justify-content-center p-0" onClick={resetTimer}>
+            <MDBIcon id="reset" size="lg" fas icon="sync"  />
           </MDBContainer>
-          <MDBContainer className="d-flex align-items-center justify-content-center p-0">
-            <MDBIcon id="reset" size="lg" fas icon="sync" />
-          </MDBContainer>
-          
+          <audio id="beep" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
         </MDBContainer>
       </MDBContainer>
     </MDBContainer>
