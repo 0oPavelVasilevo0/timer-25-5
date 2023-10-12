@@ -1,7 +1,7 @@
 import { MDBContainer, MDBIcon } from "mdb-react-ui-kit";
 import './App.css';
 import React, { useEffect, useState } from "react";
-
+import zvonok from './audio/zvonok.mp3'
 
 function App() {
 
@@ -11,24 +11,196 @@ function App() {
   const [timerLabel, setTimerLabel] = useState("Session");
   const [timerRunning, setTimerRunning] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  // const [isDelaying, setIsDelaying] = useState(false);
 
+  // useEffect(() => {
+  //   let intervalId;
+  //   let delayTimerId;
+
+  //   if (timerRunning && timeLeft === 0) {
+  //     clearInterval(intervalId); // Clear the existing interval
+  //     clearTimeout(delayTimerId); // Clear the delay timer if it's active
+
+  //     setIsDelaying(true); // Set the delay flag
+
+  //     delayTimerId = setTimeout(() => {
+  //       const audio = document.getElementById('beep');
+  //       audio.play(); // Play the beep sound
+
+  //       // Switch to break or session based on current timer label
+  //       if (timerLabel === "Session") {
+  //         setTimerLabel("Break");
+  //         setTimeLeft(breakLength * 60);
+  //       } else {
+  //         setTimerLabel("Session");
+  //         setTimeLeft(sessionLength * 60);
+  //       }
+
+  //       setIsDelaying(false); // Reset the delay flag
+
+  //       // Set a new interval to continue counting down the timer
+  //       intervalId = setInterval(() => {
+  //         setTimeLeft(prev => {
+  //           if (prev === 0) {
+  //             const audio = document.getElementById('beep');
+  //             audio.play(); // Play the beep sound
+
+  //             // Switch to break or session based on current timer label
+  //             if (timerLabel === "Session") {
+  //               setTimerLabel("Break");
+  //               return breakLength * 60;
+  //             } else {
+  //               setTimerLabel("Session");
+  //               return sessionLength * 60;
+  //             }
+  //           }
+  //           return prev - 1;
+  //         });
+  //       }, 1000);
+  //     }, 1000); // 1 second delay
+  //   } else if (!timerRunning) {
+  //     clearInterval(intervalId); // Clear the interval if timer is paused
+  //     clearTimeout(delayTimerId); // Clear the delay timer
+  //   }
+
+  //   return () => {
+  //     clearInterval(intervalId); // Clear interval on component unmount
+  //     clearTimeout(delayTimerId); // Clear delay timer on component unmount
+  //   };
+  // }, [timerRunning, timeLeft, breakLength, sessionLength, timerLabel]); 1
+
+  // useEffect(() => {
+  //   let intervalId;
+  //   let delayTimerId;
+
+  //   if (timerRunning && timeLeft === 0) {
+  //     clearInterval(intervalId); // Clear the existing interval
+  //     clearTimeout(delayTimerId); // Clear the delay timer if it's active
+
+  //     setIsDelaying(true); // Set the delay flag
+
+  //     delayTimerId = setTimeout(() => {
+  //       const audio = document.getElementById('beep');
+  //       audio.play(); // Play the beep sound
+
+  //       // Switch to break or session based on the current timer label
+  //       if (timerLabel === "session") {
+  //         setTimerLabel("break");
+  //         setTimeLeft(breakLength * 60);
+  //       } else {
+  //         setTimerLabel("session");
+  //         setTimeLeft(sessionLength * 60);
+  //       }
+
+  //       setIsDelaying(false); // Reset the delay flag
+
+  //       // Set a new interval to continue counting down the timer
+  //       intervalId = setInterval(() => {
+  //         setTimeLeft((prev) => {
+  //           if (prev === 0) {
+  //             const audio = document.getElementById('beep');
+  //             audio.play(); // Play the beep sound
+
+  //             // Switch to break or session based on the current timer label
+  //             if (timerLabel === "session") {
+  //               setTimerLabel("break");
+  //               return breakLength * 60;
+  //             } else {
+  //               setTimerLabel("session");
+  //               return sessionLength * 60;
+  //             }
+  //           }
+  //           return prev - 1;
+  //         });
+  //       }, 1000);
+  //     }, 1000); // 1 second delay
+  //   } else if (!timerRunning) {
+  //     clearInterval(intervalId); // Clear the interval if the timer is paused
+  //     clearTimeout(delayTimerId); // Clear the delay timer
+  //   }
+
+  //   return () => {
+  //     clearInterval(intervalId); // Clear the interval on component unmount
+  //     clearTimeout(delayTimerId); // Clear the delay timer on component unmount
+  //   };
+  // }, [timerRunning, timeLeft, breakLength, sessionLength, timerLabel]); 2
+
+  // useEffect(() => {
+  //   let intervalId;
+
+  //   if (timerRunning) {
+  //     intervalId = setInterval(() => {
+  //       setTimeLeft(prev => {
+  //         if (prev <= 1) {
+  //           const audio = document.getElementById('beep');
+  //           audio.play(); // Play the beep sound
+
+  //           // Toggle the timerLabel between 'break' and 'session'
+  //           setTimerLabel(prevLabel => (prevLabel === 'Session' ? 'Break' : 'Session'));
+
+  //           // Switch timeLeft based on the current timerLabel
+  //           return timerLabel === 'Session' ? breakLength * 60 : sessionLength * 60;
+  //         }
+  //         return prev - 1;
+  //       });
+  //     }, 1000);
+  //   } else {
+  //     clearInterval(intervalId); // Clear the interval if timer is paused
+  //   }
+
+  //   return () => {
+  //     clearInterval(intervalId); // Clear interval on component unmount or when timer is paused
+  //   };
+  // }, [timerRunning, timerLabel, breakLength, sessionLength]); хз
+
+
+  // Effect to update timer-label element whenever timerLabel changes
+  // useEffect(() => {
+  //   const timerLabelElement = document.getElementById('timer-label');
+  //   if (timerLabelElement) {
+  //     timerLabelElement.textContent = timerLabel;
+  //   }
+  // }, [timerLabel]);
+
+
+  // useEffect(() => {
+  //   if (timerRunning && timeLeft === 0) {
+  //     const audio = document.getElementById('beep');
+  //     audio.play();
+
+  //     // Switch the timer label based on the current label
+  //     if (timerLabel === "session") {
+  //       setTimerLabel("break");
+  //       setTimeLeft(breakLength * 60);
+  //     } else {
+  //       setTimerLabel("session");
+  //       setTimeLeft(sessionLength * 60);
+  //     }
+      
+  //   }
+  // }, [timerRunning, timeLeft, timerLabel, breakLength, sessionLength]); хорошо работает
+
+  // Effect for updating timer-label and playing sound
   useEffect(() => {
     if (timerRunning && timeLeft === 0) {
-      // clearInterval(intervalId); // Pause the timer when time runs out
+      // Play the sound immediately when timeLeft reaches 0
       const audio = document.getElementById('beep');
-      audio.play(); // Play the beep sound
+      audio.play();
 
-      // Switch to break or session based on current timer label
-      if (timerLabel === "Session") {
-        setTimerLabel("Break");
-        setTimeLeft(breakLength * 60);
-      } else {
-        setTimerLabel("Session");
-        setTimeLeft(sessionLength * 60);
-      }
-      // setTimerRunning(false);
+      // Wait for 1 second before switching the timer label
+      setTimeout(() => {
+        // Switch the timer label based on the current label
+        if (timerLabel === "Session") {
+          setTimerLabel("Break");
+          setTimeLeft(breakLength * 60);
+        } else {
+          setTimerLabel("Session");
+          setTimeLeft(sessionLength * 60);
+        }
+      }, 1000);
     }
-  }, [timerRunning, timeLeft, breakLength, sessionLength, timerLabel]);
+  }, [timerRunning, timeLeft, timerLabel, breakLength, sessionLength]);
+ 
 
   // Functions for incrementing and decrementing break/session lengths
   const incrementBreakLength = () => {
@@ -58,24 +230,80 @@ function App() {
   };
 
   // Functions for starting, pausing, and resetting the timer
+  // const startStopTimer = () => {
+  //   if (timerRunning) {
+  //     clearInterval(intervalId); // Clear the interval when timer is paused
+  //     setTimerRunning(false);
+  //   } else {
+  //     const newIntervalId = setInterval(() => {
+  //       setTimeLeft(prev => {
+  //         if (prev === 0) {
+  //           const audio = document.getElementById('beep');
+  //           audio.play(); // Play the beep sound
+
+  //           // Switch to break or session based on current timer label
+  //           if (timerLabel === "Session") {
+  //             setTimerLabel("Break");
+  //             return breakLength * 60;
+  //           } else {
+  //             setTimerLabel("Session");
+  //             return sessionLength * 60;
+  //           }
+  //         }
+  //         return prev - 1;
+  //       });
+  //     }, 1000);
+  //     setIntervalId(newIntervalId);
+  //     setTimerRunning(true);
+  //   }
+  // }; 1
+
+  // const startStopTimer = () => {
+  //   if (timerRunning) {
+  //     clearInterval(intervalId); // Clear the interval when the timer is paused
+  //     setTimerRunning(false);
+  //   } else {
+  //     const newIntervalId = setInterval(() => {
+  //       setTimeLeft((prev) => {
+  //         if (prev === 0) {
+  //           const audio = document.getElementById('beep');
+  //           audio.play(); // Play the beep sound
+
+  //           // Switch to break or session based on the current timer label
+  //           if (timerLabel === "session") {
+  //             setTimerLabel("break");
+  //             return breakLength * 60;
+  //           } else {
+  //             setTimerLabel("session");
+  //             return sessionLength * 60;
+  //           }
+  //         }
+  //         return prev - 1;
+  //       });
+  //     }, 1000);
+  //     setIntervalId(newIntervalId);
+  //     setTimerRunning(true);
+  //   }
+  // }; 1
+
   const startStopTimer = () => {
     if (timerRunning) {
-      clearInterval(intervalId); // Pause the timer
+      clearInterval(intervalId);
       setTimerRunning(false);
     } else {
       const newIntervalId = setInterval(() => {
         setTimeLeft(prev => {
           if (prev === 0) {
             const audio = document.getElementById('beep');
-            audio.play(); // Play the beep sound
+            audio.play();
 
-            // Switch to break or session based on current timer label
+            // Switch the timer label and reset timeLeft based on the current label
             if (timerLabel === "Session") {
               setTimerLabel("Break");
-              return breakLength * 60;
+              return breakLength * 60;// 
             } else {
               setTimerLabel("Session");
-              return sessionLength * 60;
+              return sessionLength * 60; 
             }
           }
           return prev - 1;
@@ -85,6 +313,8 @@ function App() {
       setTimerRunning(true);
     }
   };
+
+
 
   const resetTimer = () => {
     clearInterval(intervalId); // Stop the running timer
@@ -128,7 +358,7 @@ function App() {
         <MDBContainer fluid className="d-flex flex-row mb-3 px-0 ">
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="break-label" className="d-flex align-items-center justify-content-center px-0">
-              Break Length
+              Break
             </MDBContainer>
             <MDBContainer
               className="d-flex flex-row align-items-center justify-content-center "
@@ -147,7 +377,7 @@ function App() {
           </MDBContainer>
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="session-label" className="d-flex align-items-center justify-content-center px-0">
-              Session Length
+              Session
             </MDBContainer>
             <MDBContainer
               className="d-flex flex-row align-items-center justify-content-center "
@@ -169,7 +399,7 @@ function App() {
           className="border border-secondary rounded-3 d-flex flex-column align-items-center justify-content-center my-3 p-3 "
           style={{ maxWidth: "9rem", fontSize: '2rem' }}
         >
-          <MDBContainer id="timer-label" className="d-flex flex-column align-items-center justify-content-center px-0">
+          <MDBContainer id='timer-label' className="d-flex flex-column align-items-center justify-content-center px-0">
             {timerLabel}
           </MDBContainer>
           <MDBContainer id="time-left" className="d-flex flex-column align-items-center justify-content-center px-0">
@@ -183,7 +413,7 @@ function App() {
           <MDBContainer className="d-flex align-items-center justify-content-center p-0" onClick={resetTimer}>
             <MDBIcon id="reset" size="lg" fas icon="sync"  />
           </MDBContainer>
-          <audio id="beep" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
+          <audio id="beep" src={zvonok} ></audio>
         </MDBContainer>
       </MDBContainer>
     </MDBContainer>
