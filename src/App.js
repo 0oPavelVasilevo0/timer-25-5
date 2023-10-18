@@ -8,7 +8,7 @@ function App() {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
   const [timeLeft, setTimeLeft] = useState(sessionLength * 60); // in seconds
-  const [timerLabel, setTimerLabel] = useState("Session");
+  const [timerLabel, setTimerLabel] = useState("session");
   const [timerRunning, setTimerRunning] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
 
@@ -41,11 +41,11 @@ function App() {
       audio.play();
 
       timeoutId = setTimeout(() => {
-        if (timerLabel === "Session") {
-          setTimerLabel("Break");
+        if (timerLabel === "session") {
+          setTimerLabel("break");
           setTimeLeft(breakLength * 60);
         } else {
-          setTimerLabel("Session");
+          setTimerLabel("session");
           setTimeLeft(sessionLength * 60);
         }
       }, 1000);
@@ -58,7 +58,7 @@ function App() {
   const incrementBreakLength = () => {
     if (!timerRunning && breakLength < 60) {
       setBreakLength(breakLength + 1);
-      if (timerLabel === "Break") {
+      if (timerLabel === "break") {
         setTimeLeft((breakLength + 1) * 60);
       }
     }
@@ -67,7 +67,7 @@ function App() {
   const decrementBreakLength = () => {
     if (!timerRunning && breakLength > 1) {
       setBreakLength(breakLength - 1);
-      if (timerLabel === "Break") {
+      if (timerLabel === "break") {
         setTimeLeft((breakLength - 1) * 60);
       }
     }
@@ -76,7 +76,7 @@ function App() {
   const incrementSessionLength = () => {
     if (!timerRunning && sessionLength < 60) {
       setSessionLength(sessionLength + 1);
-      if (timerLabel === "Session") {
+      if (timerLabel === "session") {
         setTimeLeft((sessionLength + 1) * 60);
       }
     }
@@ -85,18 +85,18 @@ function App() {
   const decrementSessionLength = () => {
     if (!timerRunning && sessionLength > 1) {
       setSessionLength(sessionLength - 1);
-      if (timerLabel === "Session") {
+      if (timerLabel === "session") {
         setTimeLeft((sessionLength - 1) * 60);
       }
     }
   };
 
   const handleTimerSwitch = () => {
-    if (timerLabel === "Session") {
-      setTimerLabel("Break");
+    if (timerLabel === "session") {
+      setTimerLabel("break");
       setTimeLeft(breakLength * 60);
     } else {
-      setTimerLabel("Session");
+      setTimerLabel("session");
       setTimeLeft(sessionLength * 60);
     }
   };
@@ -141,11 +141,11 @@ function App() {
             audio.play();
 
             // Switch the timer label and reset timeLeft based on the current label
-            if (timerLabel === "Session") {
-              setTimerLabel("Break");
+            if (timerLabel === "session") {
+              setTimerLabel("break");
               return breakLength * 60;
             } else {
-              setTimerLabel("Session");
+              setTimerLabel("session");
               return sessionLength * 60;
             }
           }
@@ -161,7 +161,7 @@ function App() {
   const resetTimer = () => {
     clearInterval(intervalId); // Stop the running timer
     setTimerRunning(false); // Pause the timer
-    setTimerLabel("Session"); // Reset the timer label to "Session"
+    setTimerLabel("session"); // Reset the timer label to "Session"
     setBreakLength(5); // Reset break length to 5
     setSessionLength(25); // Reset session length to 25
     setTimeLeft(25 * 60); // Reset timeLeft to initial session length in seconds
@@ -200,7 +200,7 @@ function App() {
         <MDBContainer fluid className="d-flex flex-row px-0 " style={{ width: '12rem'}}>
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="break-label" className="d-flex align-items-center justify-content-center px-0 mb-1">
-              Break
+              break
             </MDBContainer>
               <MDBContainer className="d-flex  justify-content-center align-items-center ">
                 <span>
@@ -218,7 +218,7 @@ function App() {
           </MDBContainer>
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="session-label" className="d-flex align-items-center justify-content-center px-0 mb-1">
-              Session
+              session
             </MDBContainer>
             <MDBContainer className="d-flex justify-content-center align-items-center">
               <span>
