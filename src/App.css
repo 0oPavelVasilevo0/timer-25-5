@@ -1,1 +1,13 @@
+.btn_active {
+  cursor: pointer;
+  color: rgb(100, 101, 104);
+  text-decoration: none;
+}
 
+.btn_active :hover {
+color: rgb(100, 101, 104);
+}
+
+.btn_active :active {
+  color: rgb(5, 255, 47);
+}

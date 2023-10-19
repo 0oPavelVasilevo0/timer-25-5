@@ -12,27 +12,6 @@ function App() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
 
-  // useEffect(() => {
-  //   let timeoutId;
-  //   if (timerRunning && timeLeft === 0) {
-  //     const audio = document.getElementById('beep');
-  //     audio.play();
-
-  //    timeoutId =  setTimeout(() => {
-  //       if (timerLabel === "Session") {
-  //         setTimerLabel("Break");
-  //         setTimeLeft(breakLength * 60);
-  //       } else {
-  //         setTimerLabel("Session");
-  //         setTimeLeft(sessionLength * 60);
-  //       }
-  //     }, 1000);
-  //   }
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [timerRunning, timeLeft, timerLabel, breakLength, sessionLength]); //рабочий но 3 ошибки в тестах
-
 
   useEffect(() => {
     let timeoutId;
@@ -91,44 +70,6 @@ function App() {
     }
   };
 
-  const handleTimerSwitch = () => {
-    if (timerLabel === "session") {
-      setTimerLabel("break");
-      setTimeLeft(breakLength * 60);
-    } else {
-      setTimerLabel("session");
-      setTimeLeft(sessionLength * 60);
-    }
-  };
-
-  // const startStopTimer = () => {
-  //   if (timerRunning) {
-  //     clearInterval(intervalId);
-  //     setTimerRunning(false);
-  //   } else {
-  //     const newIntervalId = setInterval(() => {
-  //       setTimeLeft(prev => {
-  //         if (prev === 0) {
-  //           const audio = document.getElementById('beep');
-  //           audio.play();
-
-  //           // Switch the timer label and reset timeLeft based on the current label
-  //           if (timerLabel === "Session") {
-  //             setTimerLabel("Break");
-  //             return breakLength * 60;
-  //           } else {
-  //             setTimerLabel("Session");
-  //             return sessionLength * 60;
-  //           }
-  //         }
-  //         return prev - 1;
-  //       });
-  //     }, 1000);
-  //     setIntervalId(newIntervalId);
-  //     setTimerRunning(true);
-  //   }
-  // }; // рабочий оптимизирован но тест не работает
-
   const startStopTimer = () => {
     if (timerRunning) {
       clearInterval(intervalId);
@@ -183,11 +124,11 @@ function App() {
   return (
     <MDBContainer
       fluid
-      className=" d-flex  align-items-center justify-content-center px-0"
+      className=" d-flex bg-success bg-opacity-25 align-items-center justify-content-center px-0"
       style={{ height: "100vh" }}
     >
       <MDBContainer
-        className=" border border-secondary rounded-3  d-flex flex-column justify-content-center align-items-center mx-1"
+        className=" rounded-3 bg-success bg-opacity-75 bg-gradient shadow-5-strong d-flex flex-column justify-content-center align-items-center mx-1"
         style={{ maxWidth: "18rem" }}
       >
         <MDBContainer
@@ -197,46 +138,46 @@ function App() {
         >
           Timer
         </MDBContainer>
-        <MDBContainer fluid className="d-flex flex-row px-0 " style={{ width: '12rem'}}>
+        <MDBContainer fluid className="d-flex flex-row px-0 " style={{ width: '12rem' }}>
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="break-label" className="d-flex align-items-center justify-content-center px-0 mb-1">
               break
             </MDBContainer>
-              <MDBContainer className="d-flex  justify-content-center align-items-center ">
-                <span>
-              <MDBIcon id="break-increment" size="lg" far icon="arrow-alt-circle-up" onClick={incrementBreakLength} style={{ cursor: 'pointer' }} />
-              </span>
+            <MDBContainer className="d-flex  justify-content-center align-items-center ">
+              <a href="!#" className="btn_active" >
+                <MDBIcon id="break-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementBreakLength}  />
+              </a>
             </MDBContainer>
-              <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center ">
-                {breakLength}
-              </MDBContainer>
-              <MDBContainer className="d-flex  justify-content-center align-items-center ">
-              <span>
-              <MDBIcon id="break-decrement" size="lg" far icon="arrow-alt-circle-down" onClick={decrementBreakLength} style={{ cursor: 'pointer' }} />
-              </span>
+            <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center " style={{ fontSize: '1.2rem' }}>
+              {breakLength}
+            </MDBContainer>
+            <MDBContainer className="d-flex  justify-content-center align-items-center ">
+              <a href="!#" className="btn_active" >
+                <MDBIcon id="break-decrement" size="xl" far icon="arrow-alt-circle-down" onClick={decrementBreakLength} />
+              </a>
             </MDBContainer>
           </MDBContainer>
           <MDBContainer className="d-flex flex-column align-items-center justify-content-center px-0">
             <MDBContainer id="session-label" className="d-flex align-items-center justify-content-center px-0 mb-1">
               session
             </MDBContainer>
+            <MDBContainer className="d-flex justify-content-center align-items-center" >
+              <a href="!#" className="btn_active" >
+                <MDBIcon id="session-increment"  size="xl" far icon="arrow-alt-circle-up" onClick={incrementSessionLength} />
+              </a>
+            </MDBContainer>
+            <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center " style={{fontSize: '1.2rem'}}>
+              {sessionLength}
+            </MDBContainer>
             <MDBContainer className="d-flex justify-content-center align-items-center">
-              <span>
-              <MDBIcon id="session-increment" size="lg" far icon="arrow-alt-circle-up" onClick={incrementSessionLength} style={{cursor: 'pointer'}}/>
-              </span>
-              </MDBContainer>
-              <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center ">
-                {sessionLength}
-              </MDBContainer>
-              <MDBContainer className="d-flex justify-content-center align-items-center">
-              <span>
-              <MDBIcon id="session-decrement" size="lg" far icon="arrow-alt-circle-down" onClick={decrementSessionLength} style={{ cursor: 'pointer' }} />
-              </span>
+              <a href="!#" className="btn_active" >
+                <MDBIcon id="session-decrement" size="xl" far icon="arrow-alt-circle-down" onClick={decrementSessionLength} />
+              </a>
             </MDBContainer>
           </MDBContainer>
         </MDBContainer>
         <MDBContainer
-          className="border border-secondary rounded-3 d-flex flex-column align-items-center justify-content-center my-3 p-3 "
+          className=" rounded-3 d-flex flex-column bg-dark bg-opacity-50 bg-gradient text-light align-items-center justify-content-center my-3 p-3 "
           style={{ maxWidth: "12rem", fontSize: '2rem' }}
         >
           <MDBContainer id='timer-label' className="d-flex flex-column align-items-center justify-content-center px-0">
@@ -248,10 +189,14 @@ function App() {
         </MDBContainer>
         <MDBContainer className="d-flex flex-row align-items-center justify-content-center mb-3 px-0 " style={{ width: '12rem', height: '2rem' }}>
           <MDBContainer className="d-flex align-items-center justify-content-center p-0">
-            <MDBIcon id="start_stop" size="lg" far icon={timerRunning ? "pause-circle" : "play-circle"} onClick={startStopTimer} style={{ cursor: 'pointer' }} />
+            <a href="!#" className="btn_active" >
+            <MDBIcon id="start_stop" size="xl" far icon={timerRunning ? "pause-circle" : "play-circle"} onClick={startStopTimer}  />
+            </a>
           </MDBContainer>
-          <MDBContainer className="d-flex align-items-center justify-content-center p-0" onClick={resetTimer} style={{ cursor: 'pointer' }}>
-            <MDBIcon id="reset" size="lg" fas icon="sync" />
+          <MDBContainer className="d-flex align-items-center justify-content-center p-0" onClick={resetTimer} >
+            <a href="!#" className="btn_active" >
+              <MDBIcon id="reset" size="xl" fas icon="sync" />
+              </a>
           </MDBContainer>
           <audio id="beep" src={sound} ></audio>
         </MDBContainer>
