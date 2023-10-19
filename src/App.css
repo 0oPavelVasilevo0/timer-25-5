@@ -1,7 +1,8 @@
 .btn_active {
   cursor: pointer;
-  color: rgb(100, 101, 104);
+  color: rgb(136, 137, 141);
   text-decoration: none;
+  height: 1.5rem;
 }
 
 .btn_active :hover {

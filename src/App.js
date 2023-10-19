@@ -128,7 +128,7 @@ function App() {
       style={{ height: "100vh" }}
     >
       <MDBContainer
-        className=" rounded-3 bg-success bg-opacity-75 bg-gradient shadow-5-strong d-flex flex-column justify-content-center align-items-center mx-1"
+        className=" rounded-3 bg-dark  text-white bg-gradient shadow-5-strong d-flex flex-column justify-content-center align-items-center mx-1"
         style={{ maxWidth: "18rem" }}
       >
         <MDBContainer
@@ -177,7 +177,7 @@ function App() {
           </MDBContainer>
         </MDBContainer>
         <MDBContainer
-          className=" rounded-3 d-flex flex-column bg-dark bg-opacity-50 bg-gradient text-light align-items-center justify-content-center my-3 p-3 "
+          className=" rounded-3 d-flex flex-column  bg-white bg-opacity-50  text-dark shadow-inner align-items-center justify-content-center my-3 p-3 "
           style={{ maxWidth: "12rem", fontSize: '2rem' }}
         >
           <MDBContainer id='timer-label' className="d-flex flex-column align-items-center justify-content-center px-0">
