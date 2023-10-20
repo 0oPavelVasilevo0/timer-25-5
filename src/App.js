@@ -145,7 +145,7 @@ function App() {
             </MDBContainer>
             <MDBContainer className="d-flex  justify-content-center align-items-center ">
               <a href="!#" className="btn_active" >
-                <MDBIcon id="break-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementBreakLength}  />
+                <MDBIcon id="break-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementBreakLength} />
               </a>
             </MDBContainer>
             <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center " style={{ fontSize: '1.2rem' }}>
@@ -163,10 +163,10 @@ function App() {
             </MDBContainer>
             <MDBContainer className="d-flex justify-content-center align-items-center" >
               <a href="!#" className="btn_active" >
-                <MDBIcon id="session-increment"  size="xl" far icon="arrow-alt-circle-up" onClick={incrementSessionLength} />
+                <MDBIcon id="session-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementSessionLength} />
               </a>
             </MDBContainer>
-            <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center " style={{fontSize: '1.2rem'}}>
+            <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center " style={{ fontSize: '1.2rem' }}>
               {sessionLength}
             </MDBContainer>
             <MDBContainer className="d-flex justify-content-center align-items-center">
@@ -177,7 +177,7 @@ function App() {
           </MDBContainer>
         </MDBContainer>
         <MDBContainer
-          className=" rounded-3 d-flex flex-column  bg-light bg-opacity-75  text-dark shadow-inner align-items-center justify-content-center my-3 p-3 "
+          className=" rounded-3 d-flex flex-column bg-light bg-opacity-75  text-dark shadow-inner align-items-center justify-content-center my-3 p-3 "
           style={{ maxWidth: "12rem", fontSize: '2rem' }}
         >
           <MDBContainer id='timer-label' className="d-flex flex-column align-items-center justify-content-center px-0">
@@ -190,13 +190,13 @@ function App() {
         <MDBContainer className="d-flex flex-row align-items-center justify-content-center mb-3 px-0 " style={{ width: '12rem', height: '2rem' }}>
           <MDBContainer className="d-flex align-items-center justify-content-center p-0">
             <a href="!#" className="btn_active" >
-            <MDBIcon id="start_stop" size="xl" far icon={timerRunning ? "pause-circle" : "play-circle"} onClick={startStopTimer}  />
+              <MDBIcon id="start_stop" size="xl" far icon={timerRunning ? "pause-circle" : "play-circle"} onClick={startStopTimer} />
             </a>
           </MDBContainer>
           <MDBContainer className="d-flex align-items-center justify-content-center p-0" onClick={resetTimer} >
             <a href="!#" className="btn_active" >
               <MDBIcon id="reset" size="xl" fas icon="sync" />
-              </a>
+            </a>
           </MDBContainer>
           <audio id="beep" src={sound} ></audio>
         </MDBContainer>
