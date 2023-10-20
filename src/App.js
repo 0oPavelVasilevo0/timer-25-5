@@ -148,7 +148,7 @@ function App() {
                 <MDBIcon id="break-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementBreakLength} />
               </a>
             </MDBContainer>
-            <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center " style={{ fontSize: '1.2rem' }}>
+            <MDBContainer id="break-length" className="p-0 d-flex justify-content-center align-items-center my-1 " style={{ fontSize: '1.2rem' }}>
               {breakLength}
             </MDBContainer>
             <MDBContainer className="d-flex  justify-content-center align-items-center ">
@@ -166,7 +166,7 @@ function App() {
                 <MDBIcon id="session-increment" size="xl" far icon="arrow-alt-circle-up" onClick={incrementSessionLength} />
               </a>
             </MDBContainer>
-            <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center " style={{ fontSize: '1.2rem' }}>
+            <MDBContainer id="session-length" className="p-0 d-flex justify-content-center align-items-center my-1 " style={{ fontSize: '1.2rem' }}>
               {sessionLength}
             </MDBContainer>
             <MDBContainer className="d-flex justify-content-center align-items-center">
