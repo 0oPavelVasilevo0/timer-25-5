@@ -177,7 +177,7 @@ function App() {
           </MDBContainer>
         </MDBContainer>
         <MDBContainer
-          className=" rounded-3 d-flex flex-column  bg-white bg-opacity-50  text-dark shadow-inner align-items-center justify-content-center my-3 p-3 "
+          className=" rounded-3 d-flex flex-column  bg-light bg-opacity-75  text-dark shadow-inner align-items-center justify-content-center my-3 p-3 "
           style={{ maxWidth: "12rem", fontSize: '2rem' }}
         >
           <MDBContainer id='timer-label' className="d-flex flex-column align-items-center justify-content-center px-0">
